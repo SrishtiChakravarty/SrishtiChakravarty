@@ -1,0 +1,181 @@
+#include <iostream>
+using namespace std;
+
+
+class student{
+    public:
+    string name;
+    int age;
+    bool gender;
+    
+    void printinflo(){
+        cout<<"name"<<endl;
+        cout<<name;
+        cout<<"AGE"<<endl;
+        cout<<age;
+        cout<<"GENDER"<<endl;
+        cout<<gender;
+    }
+    
+    
+};
+
+int main() {
+	
+	student arr[3];
+	
+	for(int i=0;i<3;i++){
+	    cout<<"Name ="<<endl;
+	    cin>>arr[i].name;
+	    cout<<"AGE ="<<endl;
+	    cin>>arr[i].age;
+	    cout<<"Gender ="<<endl;
+	    cin>>arr[i].gender;
+	}
+	
+	for(int i=0;i<3;i++){
+	    arr[i].printinflo();
+	}
+	
+	return 0;
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+function to acess private data members 
+
+
+#include <iostream>
+using namespace std;
+
+
+class student{
+    string name;
+    public:
+    
+    int age;
+    bool gender;
+    
+    void setname(string s){
+        name=s;
+        
+    }
+    
+    void printinflo(){
+        cout<<"name"<<endl;
+        cout<<name;
+        cout<<"AGE"<<endl;
+        cout<<age;
+        cout<<"GENDER"<<endl;
+        cout<<gender;
+    }
+    
+    
+};
+
+int main() {
+	
+	student arr[3];
+	
+	for(int i=0;i<3;i++){
+	    string s;
+	    cout<<"Name ="<<endl;
+	    //cin>>arr[i].name;
+	    cin>>s;
+	    arr[i].setname(s);
+	    cout<<"AGE ="<<endl;
+	    cin>>arr[i].age;
+	    cout<<"Gender ="<<endl;
+	    cin>>arr[i].gender;
+	}
+	
+	for(int i=0;i<3;i++){
+	    arr[i].printinflo();
+	}
+	
+	return 0;
+}
+
+SIMILARLY YOU CAN USE GET NAME FOR THE Same
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Constructor in C++
+#include <iostream>
+using namespace std;
+
+
+class student{
+    string name;
+    public:
+    
+    int age;
+    bool gender;
+    
+    student(){
+        cout<<"default constructor"<<endl;    }
+    
+    student(string s,int a, int g){
+        cout<<"Parameterised constructor"<<endl;
+        name=s;
+        age=a;
+        gender=g;
+    }
+    
+    student(student &a){
+        cout<<"copy constructor"<<endl;
+        name=a.name;
+        age=a.age;
+        gender= a.gender;
+        
+        
+    }
+    
+    void setname(string s){
+        name=s;
+        
+    }
+    
+    
+    
+    void printinflo(){
+        cout<<"name"<<endl;
+        cout<<name;
+        cout<<"AGE"<<endl;
+        cout<<age;
+        cout<<"GENDER"<<endl;
+        cout<<gender;
+    }
+    
+    
+};
+
+int main() {
+	
+//	student arr[3];
+	
+	//for(int i=0;i<3;i++){
+	   // string s;
+	    //cout<<"Name ="<<endl;
+	    //cin>>arr[i].name;
+	    //cin>>s;
+	    //arr[i].setname(s);
+	    //cout<<"AGE ="<<endl;
+	    //cin>>arr[i].age;
+	    //cout<<"Gender ="<<endl;
+	  //  cin>>arr[i].gender;
+	//}
+	
+	//for(int i=0;i<3;i++){
+	   // arr[i].printinflo();
+	//}
+	
+	student a("urvi",20,1);
+
+
+	student b;
+	student c = a;  //copy constructor 
+	
+	return 0;
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+distructor
+
+        
