@@ -1,0 +1,82 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct Node{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int val){
+        data= val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+int countnode(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    return countnode(root->left)+countnode(root->right)+1;
+}
+
+int heightoftree(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    int ans=max(heightoftree(root->left), heightoftree(root->right))+1;
+    return ans;
+}
+
+int diameterofbtree(Node* root){
+    if(root==NULL){
+        return 0;
+    }
+    int lheight=heightoftree(root->left);
+    int rheight=heightoftree(root->left);
+    int currdia= lheight+rheight+1;
+    
+    int ldia=diameterofbtree(root->left);
+    int rdia=diameterofbtree(root->right);
+    
+    return max(currdia,max(ldia,rdia));
+}
+
+
+int odiameter(Node* root,Node* height){
+    if(root==NULL){
+        *height=0;
+        return 0;
+    }
+    int lh=0;
+    int rh=0;
+    int ldiameter=diameterofbtree(root->left,&lh);
+    int rdiameter- diameterofbtree(root->right,&rh);
+    
+    int currdia=lh+rh+1;
+    *height= max(lh,rh)+1;
+    
+    return max(currdia,max(ldiameter,rdiameter));
+    
+    
+}
+
+int main() {
+	struct Node* root = new Node(1);
+	root->left=new Node(2);
+	root->right=new Node(3);
+	root->left->left=new Node(4);
+	root->left->right=new Node(5);
+	root->right->left= new Node(6);
+	root->right->right=new Node(7);
+	 cout<<heightoftree(root)<<endl;
+	cout<<diameterofbtree(root)<<endl;
+	int height=0;
+	cout<<odiameter(root,height);
+
+
+	
+	return 0;
+}
