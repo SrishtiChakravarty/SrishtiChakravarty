@@ -1,0 +1,133 @@
+3 case covered 
+
+#include <iostream>
+#include <vector>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct Node{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int val){
+        data= val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+Node* Bst(Node* root, int val){
+    
+    if(root==NULL){
+        return new Node(val);
+    }
+    
+    if(val<root->data){
+        root->left=Bst(root->left, val);
+        
+    }
+    else{
+        root->right=Bst(root->right,val);
+    }
+    return root;
+}
+
+void inorder(Node* root){
+    
+    if(root==NULL){
+        return;
+    }
+    
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+
+Node* inordersucc(Node* root){
+    Node* curr=root;
+    
+    while(curr && curr->left!=NULL){
+    curr=curr->left;
+    }
+return curr;
+}
+
+Node* search(Node* root, int key){
+    
+    if(root==NULL){
+        return NULL;
+    }
+    
+    
+    if(root->data==key){
+        return root;
+    }
+    
+    if(root->data<key){
+        return search(root->right,key);
+    }
+    
+       
+       return search(root->left,key);
+
+}
+
+
+Node* deleteinbst(Node* root, int key){
+    
+    if(key<root->data){
+        root->left=deleteinbst(root->left,key);
+    }
+    else if(key>root->data){
+        root->right=deleteinbst(root->right,key);
+    }
+    else if(key==root->data){
+        
+    if(root->left==NULL){
+        Node* temp=root->right;
+        free(root);
+        return temp;
+    }
+    if(root->right==NULL){
+        Node* temp=root->left;
+        free(root);
+        return temp;
+    }
+    
+    Node* temp=inordersucc(root->right);
+    root->data=temp->data;
+    root->right=deleteinbst(root->right, temp->data);
+    
+}
+return root;
+}
+
+
+int main() {
+	 Node* root = NULL;
+	 root=Bst(root,5);
+	 Bst(root,1);
+	 Bst(root,4);
+	 Bst(root,3);
+	 Bst(root,2);
+	 
+	 
+//	inorder(root);
+
+   
+   //if(search(root,4)==NULL){
+      // cout<<"Key doesnt exsist";
+       
+  // }
+  // else{
+       //cout<<"key exsist"<<endl;
+  // }
+
+
+deleteinbst(root,5);
+inorder(root);
+	return 0;
+}
