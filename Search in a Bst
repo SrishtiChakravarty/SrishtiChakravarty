@@ -1,0 +1,95 @@
+tc-O(logn)
+worst case=height or level of bst
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct Node{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int val){
+        data= val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+Node* Bst(Node* root, int val){
+    
+    if(root==NULL){
+        return new Node(val);
+    }
+    
+    if(val<root->data){
+        root->left=Bst(root->left, val);
+        
+    }
+    else{
+        root->right=Bst(root->right,val);
+    }
+    return root;
+}
+
+void inorder(Node* root){
+    
+    if(root==NULL){
+        return;
+    }
+    
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+
+Node* search(Node* root, int key){
+    
+    if(root==NULL){
+        return NULL;
+    }
+    
+    
+    if(root->data==key){
+        return root;
+    }
+    
+    if(root->data<key){
+        return search(root->right,key);
+    }
+    
+       
+       return search(root->left,key);
+
+}
+
+
+int main() {
+	 Node* root = NULL;
+	 root=Bst(root,5);
+	 Bst(root,1);
+	 Bst(root,4);
+	 Bst(root,3);
+	 Bst(root,2);
+	 
+	 
+//	inorder(root);
+
+   
+   if(search(root,4)==NULL){
+       cout<<"Key doesnt exsist";
+       
+   }
+   else{
+       cout<<"key exsist"<<endl;
+   }
+
+	return 0;
+}
