@@ -1,0 +1,35 @@
+C3=C0C2+C1C1+C2C0
+first no varies from C0 CN-1
+second no varies from CN-1 TO C0
+
+
+tc=O(n2)
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int nthcatalan(int n){
+    if(n<=1){
+        return 1;
+    }
+    
+    int res=0;
+    for(int i=0;i<n;i++){
+      res+=nthcatalan(i)* nthcatalan(n-i-1);  
+    }
+    return res;
+}
+
+
+
+int main() {
+ 
+  
+for(int i=0;i<10;i++){
+    cout<<nthcatalan(i)<<endl;}
+	return 0;
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
