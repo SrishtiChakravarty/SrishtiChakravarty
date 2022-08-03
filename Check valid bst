@@ -1,0 +1,57 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* left,*right;
+    
+    Node(int val){
+        data=val;
+        left=NULL;
+        right=NULL;
+        
+    }
+};
+
+bool checkbst(Node* root,Node* min=NULL, Node* max=NULL){
+    
+    if(root==NULL){
+        return true;
+    }
+    
+    
+    if(min!=NULL && root->data <= min->data){
+        return false;
+    }
+    
+    if(max!=NULL && root->data >= max->data){
+        return false;
+    }
+    
+     bool leftval=checkbst(root->left,min,root);
+     bool rightval=checkbst(root->right,root,max);
+     
+     return leftval && rightval;
+    
+    
+}
+
+
+int main() {
+ 
+   Node* root=new Node(1);
+   root->left=new Node(2);
+   root->right=new Node(3);
+   
+   
+   if(checkbst(root,NULL,NULL)){
+       cout<<" valid  balanced binary tree"<<endl;
+   }
+   else{
+       cout<<"invalid bst"<<endl;
+   
+}
+
+	return 0;
+}
