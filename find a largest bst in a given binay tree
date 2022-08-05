@@ -1,0 +1,112 @@
+#include <iostream>
+#include <climits>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int val){
+        data=val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+
+struct inflo{
+    int size;
+    int max;
+    int min;
+    int ans;
+    bool bst;
+    
+};
+
+
+
+bool isbst(Node* root,Node* min=NULL, Node* max=NULL){
+    
+    if(root==NULL){
+        return true;
+    }
+    
+    
+    if(min!=NULL && root->data <= min->data){
+        return false;
+    }
+    
+    if(max!=NULL && root->data >= max->data){
+        return false;
+    }
+    
+     bool leftval=isbst(root->left,min,root);
+     bool rightval=isbst(root->right,root,max);
+     
+     return leftval && rightval;
+    
+    
+}
+
+
+inflo largestbst(Node* root){
+    if(root==NULL){
+        return {0,INT_MIN,INT_MAX,0,true};
+    }
+    if(root->left==NULL && root->right==NULL){
+        return(1,root->data,root->data,1,true);
+    }
+    
+    inflo leftinflo=largestbst(root->left);
+    inflo rightinflo=largestbst(root->right);
+    
+    inflo curr;
+    curr.size=(1+leftinflo.size+rightinflo.size);
+    
+    if(leftinflo.bst &&  rightinflo.bst && leftinflo.min<root->data && rightinflo.max>root->data){
+       curr.min=min(leftinflo.min,min(rightinflo.min,root->data));
+       curr.max=max(rightinflo.max,max(leftinflo.max,root->data));
+       
+       curr.ans=curr.size;
+       curr.bst=true;
+       return curr;
+    }
+   
+   curr.ans=max(leftinflo.ans,rightinflo.ans);
+   curr.bst=false;
+   return curr;
+    
+}
+
+
+
+
+
+
+void preorder(Node* root){
+     if(root==NULL){
+         return;
+     }
+     
+     cout<<root->data<<" ";
+     preorder(root->left);
+     preorder(root->right);
+     
+     
+ }
+
+int main() {
+
+Node* root=new Node(15);
+root->left=new Node(20);
+root->right=new Node(30);
+root->left->left=new Node(5);
+
+cout<<"largest bst in bt"<<largestbst(root).ans<<endl;
+
+return 0;
+}
