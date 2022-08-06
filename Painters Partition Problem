@@ -1,0 +1,55 @@
+#include <iostream>
+#include <climits>
+
+using namespace std;
+
+
+int  findfeasible(int boards[], int n, int m){
+    int sum=0;int painters=1;
+    
+    for(int i=0;i<n;i++){
+        sum+=boards[i];
+        if(sum>m){
+            sum=boards[i];
+            painters++;
+        }
+    }
+   return painters;
+}
+
+int painterspartation(int boards[], int n,int m){
+    
+    int totallenght=0;
+    int k=0;
+    
+    for(int i=0;i<n;i++){
+        k=max(k,boards[i]);
+        totallenght+=boards[i];
+    }
+    
+    int low=k,hight=totallenght;
+    while(k<hight){
+        int mid=(low+hight)/2;
+        int painters=findfeasible(boards,n, mid);
+        if(painters<=m){
+            hight=mid;
+            
+        }
+        else{
+            low=mid+1;
+        }
+    }
+    return low;
+}
+
+
+int main() {
+	int boards[]={10,20,30,40};
+	int n=4;
+	int m=2;
+	cout<<"The min no of painters "<<painterspartation(boards,n,m);
+	cout<<endl;
+	
+	return 0;
+}
+
