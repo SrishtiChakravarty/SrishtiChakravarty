@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <bits/stdc++.h>
+#include <cmath>
+
+
+using namespace std;
+
+
+
+
+bool ispalandrome(int n){
+    int temp=n;
+    int number=0;
+   
+   //calculated the reverse of a number 
+   
+    while(temp>0){
+        number=number*10+temp%10;
+        temp=temp/10;
+    }
+    
+    if(number==n){
+        return true;
+    }
+    return false;
+}
+
+int findpalandromicsubarray(std::vector<int> arr,int k){
+    int num=0;
+    
+    for(int i=0;i<k;i++){
+        num=num*10+arr[i];
+    }
+    if(ispalandrome(num)){
+        return 0;
+    }
+    for(int j=k;j<arr.size();j++){
+     num=num % pow(10,k-1)+arr[j];
+     
+     
+     if(ispalandrome(num)){
+         return j+k-1;     }
+    }
+    return -1;
+}
+
+
+
+
+int main(){
+    std::vector<int> arr={2,3,5,1,1,5};
+    int k=4;
+    
+    int ans=findpalandromicsubarray(arr,4);
+    if(ans==-1){
+         cout<<"subarray wont exsist"<<endl;
+    }
+    else{
+        for(int i=ans;i<ans+k;i++){
+            cout<<arr[i]<<" ";
+        }
+        cout<<endl;
+        
+    }
+    return 0;
+    
+}
