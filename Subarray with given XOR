@@ -1,0 +1,53 @@
+Given an array of integers A and an integer B.
+
+Find the total number of subarrays having bitwise XOR of all elements equals to B.
+Explanation 1:
+
+ The subarrays having XOR of their elements as 6 are:
+ [4, 2], [4, 2, 2, 6, 4], [2, 2, 6], [6]
+Explanation 2:
+
+ The subarrays having XOR of their elements as 5 are [5] and [5, 6, 7, 8, 9]
+
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h> 
+#include <bits/stdc++.h> 
+int subarraysXor(vector<int> &arr, int x){
+    
+    map<int,int> mpp;
+   int cnt=0;
+ int xr=0;
+    for(int i=0;i<arr.size();i++){
+        xr=xr^arr[i];
+        
+        if(xr==x)
+            cnt++;
+        
+        
+        if(mpp.find(xr^x)!=mpp.end()){
+            cnt+=mpp[xr^x];
+            
+            
+        }
+         mpp[xr]+=1;
+    }
+    
+    return cnt;
+}
+    
+    
+    
+
+  
+    
+    
+
+  
+    
